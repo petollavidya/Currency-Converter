@@ -1,185 +1,50 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Expense Tracker</title>
-    <style>
-        body{
-            position:absolute;
-        }
-        #div1
-        {
-            height:100px;
-            width:1280px;
-            background-color:#C8C8F4;
-            font-size:40px;
-            text-align:center;
-            color:#4F50AD;
-            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-        }
-        #div2
-        {   background-color:#C8C8F4;
-            height:20px;
-            width:1280px;
-            font-size:20px;
-        }
-        form {
-            background: rgba(255, 255, 255, 0.9);
-             border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
-            max-width: 1200px;
-            margin-right:10px;
-            margin-left:10px;
-            background-color:#B5E2FA;
-            height:70px;
-        }
-        .myinput
-        { 
-            height:50px;
-            width:250px;
-            border-radius:10px;
-            margin-right:50px;
-            font-size:20px;
-        }
-        #div4
-        {   font-size:20px;
-            height:50px;
-            width:250px;
-            border-radius:20px;
-            background-color:#0FA3B1;
-        }
-        table {
-        width: 100%;
-         border-collapse: collapse;
-        background-color:whitesmoke;
-        }
-        table, th, td 
-        {
-        border: 1px solid white;
-        margin-top:-20px;
-        
-        }
-        th, td {
-         text-align: center;
-        padding: 12px;
-        font-size:20px;
-        
-        }
-    th {
-        position:sticky;
-        top:0;
-        z-index:2;
-      background-color: #98f5e1;
-      padding-right:10px;
-    }
-    tr
-    {transition-property:all;
-            transition-duration:2s;
-            transition-delay:0s;
-
-    }
-    h1{
-        margin-top:10px;
-        text-align:center;
-        height:50px;
-        width:100%;
-        background-color:#fbc4ab;
-        font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    }
-    #total {
-      font-size: 22px;
-      font-weight: bold;
-      margin-top: 15px;
-      color: darkgreen;
-    }
-    tr:hover{
-        background-color:#d4abef;
-
-    }
-    #categoryTotals {
-            font-size: 18px;
-            margin: 20px;
-            padding: 10px;
-            background-color:#B5E2FA;
-            border-radius: 10px;
-            width: 200px;
-        }
-
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>currency converter</title>
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <div id="div1">Expense Tracker 
-    <div id="div2">Track your expenses according to your budget</div>
-    </div><br/>
-   
-        <form id="form1">
-            <div id="div3">
-
-            <input type="text" placeholder="Enter the title" class="myinput" id="title">
-            <input type="number" placeholder="Amount" class="myinput" id="amount">
-            <select class="myinput" id="category">
-                <option>Select Category</option>
-                <option>Food</option>
-                <option>Entertainment</option>
-                <option>Travel</option>
-                <option>Others</option>
+    <div class="container">
+   <h2>Currency converter</h2> 
+   <form>
+   <div class="amount">
+    <p>ENTER AMOUNT</p>
+    <input type="text" value="100"/>
+   </div>
+   <div class="dropdown">
+    <div class="from">
+        <p>from</p>
+        <div class="select-container">
+            <img src="https://flagsapi.com/US/flat/64.png">
+            <select name="from" >
+                
             </select>
-            <button id="div4" type="submit">Add Expense</button>
-            </div>
-        </div>
-    </form>
-        <br/>
-            <h1>Expense List</h1>
-            <table id="table1">
-            <tr>
-            <th>Title</th>
-            <th>Amount</th>
-            <th>Category</th>
-            </tr>
-        </table>
-        <div id="total">Total: ₹0</div>
-        <div id="categoryTotals">Category Totals:</div>
-            
-            <script>
-                const form = document.getElementById('form1');
-                const table = document.getElementById('table1');
-                const totalDiv = document.getElementById('total');
-                const categoryTotalsDiv = document.getElementById('categoryTotals');
-                let total=0;
-                let categoryTotals = { Food: 0, Entertainment: 0, Travel: 0, Others: 0 };
-                function updateCategoryTotals() {
-                 categoryTotalsDiv.innerHTML =
-                "Category Totals:<br>" +
-                "Food: ₹" + categoryTotals.Food + "<br>" +
-                "Entertainment: ₹" + categoryTotals.Entertainment + "<br>" +
-                "Travel: ₹" + categoryTotals.Travel + "<br>" +
-                "Others: ₹" + categoryTotals.Others;
-                 }
-                form.addEventListener('submit', function(event) {
-                  event.preventDefault();
 
-                const title = document.getElementById('title').value;
-                 const amount = parseFloat(document.getElementById('amount').value);
-                const category = document.getElementById('category').value;
-      
-      
-                 if(title==""||amount==""||category=="")
-                 {
-                 alert(" ⚠️Please fill all the fields");
-                 }
-                 else
-                 {
-                const newRow = table.insertRow();
-                newRow.insertCell(0).innerText = title;
-                newRow.insertCell(1).innerText = "₹" + amount;
-                newRow.insertCell(2).innerText = category;
-                form.reset();
-                total += parseFloat(amount);
-                totalDiv.innerText = "Total: ₹" + total;
-               }
-               categoryTotals[category] += amount;
-                 updateCategoryTotals();
-      
-            });
-            updateCategoryTotals();
-            </script>   
+        </div>
+    </div>
+
+<i class="fa-solid fa-arrow-right-arrow-left"></i>
+    <div class="to">
+        <p>TO</p>
+        <div class="select-container">
+            <img src="https://flagsapi.com/IN/flat/64.png">
+            <select name="to" >
+                
+            </select>
+
+        </div>
+
+    </div>
+   </div>
+   <div class="msg">1USD=80 INR</div>
+   <button>Get Exchange Rate</button>
+   </form>
+   </div>
+   <script src="code.js"></script>
+   <script src="app.js"></script>
 </body>
+</html>
